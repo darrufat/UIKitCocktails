@@ -25,6 +25,12 @@ let package = Package(
         .library(
             name: "Data",
             targets: ["Data"]),
+
+        // MARK: - Core
+        .library(
+            name: "Common",
+            targets: ["Common"]
+        ),
     ],
     dependencies: [
         .package(url: "https://github.com/hmlongco/Factory.git", .upToNextMajor(from: "2.3.0")),
@@ -36,7 +42,7 @@ let package = Package(
         // MARK: - Application
         .target(
             name: "RecipesSearcher",
-            dependencies: ["SnapKit", "Domain"],
+            dependencies: ["Common", "SnapKit", "Domain"],
             path: "Sources/Application/RecipesSearcher"
         ),
         .testTarget(
@@ -93,5 +99,9 @@ let package = Package(
         ),
 
         // MARK: - Core
+        .target(
+            name: "Common",
+            path: "Sources/Core/Common"
+        ),
     ]
 )
