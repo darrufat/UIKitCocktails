@@ -12,15 +12,24 @@ let package = Package(
         .library(
             name: "RecipesSearcher",
             targets: ["RecipesSearcher"]),
+        .library(
+            name: "RecipeDetail",
+            targets: ["RecipeDetail"]),
 
         // MARK: - Domain Layer
         .library(
             name: "Domain",
             targets: ["Domain"]),
+
+        // MARK: - Data Layer
+        .library(
+            name: "Data",
+            targets: ["Data"]),
     ],
     dependencies: [
         .package(url: "https://github.com/pointfreeco/swift-snapshot-testing.git", 
-                 from: "1.13.0")
+                 from: "1.13.0"),
+        .package(url:  "https://github.com/Quick/Nimble.git", from: "12.0.0"),
     ],
     targets: [
         // MARK: - Application
@@ -31,7 +40,7 @@ let package = Package(
         ),
         .testTarget(
             name: "RecipesSearcherTests",
-            dependencies: ["RecipesSearcher"], // ADD NIMBLE
+            dependencies: ["RecipesSearcher", "Nimble"],
             path: "Tests/Unit/RecipesSearcherTests"
         ),
         .testTarget(
@@ -44,14 +53,42 @@ let package = Package(
             exclude: ["__Snapshots__"]
         ),
         .target(
+            name: "RecipeDetail",
+            dependencies: ["Domain"],
+            path: "Sources/Application/RecipeDetail"
+        ),
+        .testTarget(
+            name: "RecipeDetailTests",
+            dependencies: ["RecipeDetail", "Nimble"],
+            path: "Tests/Unit/RecipeDetailTests"
+        ),
+        .testTarget(
+            name: "RecipeDetailSnapshotTests",
+            dependencies: ["RecipeDetail",
+                           .product(name: "SnapshotTesting", package: "swift-snapshot-testing"),
+            ],
+            path: "Tests/Snapshot/RecipeDetailSnapshotTests",
+            exclude: ["__Snapshots__"]
+        ),
+        .target(
             name: "Domain",
             dependencies: ["Assembly"],
             path: "Sources/Application/Domain"
         ),
         .testTarget(
             name: "DomainTests",
-            dependencies: ["Domain"], // ADD NIMBLE
+            dependencies: ["Domain", "Nimble"],
             path: "Tests/Unit/DomainTests"
+        ),
+        .target(
+            name: "Data",
+            dependencies: ["Assembly", "Nimble"],
+            path: "Sources/Application/Data"
+        ),
+        .testTarget(
+            name: "DataTests",
+            dependencies: ["Data", "Nimble"],
+            path: "Tests/Unit/DataTests"
         ),
 
         // MARK: - Core
@@ -61,7 +98,7 @@ let package = Package(
         ),
         .testTarget(
             name: "AssemblyTests",
-            dependencies: ["Assembly"], // ADD NIMBLE
+            dependencies: ["Assembly", "Nimble"],
             path: "Tests/Unit/AssemblyTests"
         ),
     ]
