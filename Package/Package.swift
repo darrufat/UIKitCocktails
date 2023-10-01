@@ -25,17 +25,24 @@ let package = Package(
         .library(
             name: "Data",
             targets: ["Data"]),
+
+        // MARK: - Core
+        .library(
+            name: "Common",
+            targets: ["Common"]
+        ),
     ],
     dependencies: [
+        .package(url: "https://github.com/hmlongco/Factory.git", .upToNextMajor(from: "2.3.0")),
         .package(url: "https://github.com/SnapKit/SnapKit.git", .upToNextMajor(from: "5.0.1")),
         .package(url: "https://github.com/pointfreeco/swift-snapshot-testing.git", from: "1.13.0"),
-        .package(url:  "https://github.com/Quick/Nimble.git", from: "12.0.0"),
+        .package(url: "https://github.com/Quick/Nimble.git", from: "12.0.0"),
     ],
     targets: [
         // MARK: - Application
         .target(
             name: "RecipesSearcher",
-            dependencies: ["SnapKit", "Domain"],
+            dependencies: ["Common", "SnapKit", "Domain"],
             path: "Sources/Application/RecipesSearcher"
         ),
         .testTarget(
@@ -72,7 +79,7 @@ let package = Package(
         ),
         .target(
             name: "Domain",
-            dependencies: ["Assembly"],
+            dependencies: ["Factory"],
             path: "Sources/Application/Domain"
         ),
         .testTarget(
@@ -82,7 +89,7 @@ let package = Package(
         ),
         .target(
             name: "Data",
-            dependencies: ["Assembly", "Nimble"],
+            dependencies: ["Factory", "Nimble"],
             path: "Sources/Application/Data"
         ),
         .testTarget(
@@ -93,13 +100,8 @@ let package = Package(
 
         // MARK: - Core
         .target(
-            name: "Assembly",
-            path: "Sources/Core/Assembly"
-        ),
-        .testTarget(
-            name: "AssemblyTests",
-            dependencies: ["Assembly", "Nimble"],
-            path: "Tests/Unit/AssemblyTests"
+            name: "Common",
+            path: "Sources/Core/Common"
         ),
     ]
 )

@@ -16,9 +16,9 @@
 		1C92AC872AC966F80011F99E /* UIKitCocktailsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C92AC862AC966F80011F99E /* UIKitCocktailsUITests.swift */; };
 		1C92AC892AC966F80011F99E /* UIKitCocktailsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C92AC882AC966F80011F99E /* UIKitCocktailsUITestsLaunchTests.swift */; };
 		1CC180DB2AC9F91400497D2C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CC180DA2AC9F91400497D2C /* LaunchScreen.storyboard */; };
+		1CC180DE2ACA158A00497D2C /* RecipesSearcher in Frameworks */ = {isa = PBXBuildFile; productRef = 1CC180DD2ACA158A00497D2C /* RecipesSearcher */; };
 		1CF455EE2AC9CD020022D67C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF455ED2AC9CD020022D67C /* AppDelegate.swift */; };
 		1CF455F02AC9CD1A0022D67C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF455EF2AC9CD1A0022D67C /* SceneDelegate.swift */; };
-		1CF455F22AC9CD3E0022D67C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF455F12AC9CD3E0022D67C /* ViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,7 +54,6 @@
 		1CC180DA2AC9F91400497D2C /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1CF455ED2AC9CD020022D67C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1CF455EF2AC9CD1A0022D67C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		1CF455F12AC9CD3E0022D67C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		1CF455F42AC9D38C0022D67C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -63,6 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1CC180DE2ACA158A00497D2C /* RecipesSearcher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +92,7 @@
 				1CC180D62AC9DD4E00497D2C /* Supporting Files */,
 				1CC180D92AC9E69600497D2C /* Tests */,
 				1C92AC662AC966F50011F99E /* Products */,
+				1CC180DC2ACA158A00497D2C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -171,7 +172,6 @@
 			children = (
 				1CF455ED2AC9CD020022D67C /* AppDelegate.swift */,
 				1CF455EF2AC9CD1A0022D67C /* SceneDelegate.swift */,
-				1CF455F12AC9CD3E0022D67C /* ViewController.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -183,6 +183,13 @@
 				1C92AC852AC966F80011F99E /* UIKitCocktailsUITests */,
 			);
 			path = Tests;
+			sourceTree = "<group>";
+		};
+		1CC180DC2ACA158A00497D2C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		1CF455F32AC9CFBB0022D67C /* SwiftUICocktails */ = {
@@ -211,6 +218,9 @@
 			dependencies = (
 			);
 			name = UIKitCocktails;
+			packageProductDependencies = (
+				1CC180DD2ACA158A00497D2C /* RecipesSearcher */,
+			);
 			productName = UIKitCocktails;
 			productReference = 1C92AC652AC966F50011F99E /* UIKitCocktails.app */;
 			productType = "com.apple.product-type.application";
@@ -330,7 +340,6 @@
 			files = (
 				1CF455F02AC9CD1A0022D67C /* SceneDelegate.swift in Sources */,
 				1CF455EE2AC9CD020022D67C /* AppDelegate.swift in Sources */,
-				1CF455F22AC9CD3E0022D67C /* ViewController.swift in Sources */,
 				1C92AC6B2AC966F50011F99E /* ContentView.swift in Sources */,
 				1C92AC6D2AC966F50011F99E /* Item.swift in Sources */,
 				1C92AC692AC966F50011F99E /* UIKitCocktailsApp.swift in Sources */,
@@ -698,6 +707,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1CC180DD2ACA158A00497D2C /* RecipesSearcher */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RecipesSearcher;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1C92AC5D2AC966F50011F99E /* Project object */;
 }
