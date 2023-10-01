@@ -27,15 +27,15 @@ let package = Package(
             targets: ["Data"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/pointfreeco/swift-snapshot-testing.git", 
-                 from: "1.13.0"),
+        .package(url: "https://github.com/SnapKit/SnapKit.git", .upToNextMajor(from: "5.0.1")),
+        .package(url: "https://github.com/pointfreeco/swift-snapshot-testing.git", from: "1.13.0"),
         .package(url:  "https://github.com/Quick/Nimble.git", from: "12.0.0"),
     ],
     targets: [
         // MARK: - Application
         .target(
             name: "RecipesSearcher",
-            dependencies: ["Domain"],
+            dependencies: ["SnapKit", "Domain"],
             path: "Sources/Application/RecipesSearcher"
         ),
         .testTarget(
