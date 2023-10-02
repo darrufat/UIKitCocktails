@@ -42,10 +42,10 @@ extension RecipesSearcherViewController: UITableViewDataSource, UITableViewDeleg
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath) as! RecipeTableViewCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath) as? RecipeTableViewCell else { return UITableViewCell() }
         let recipe = searchController.isActive ? filteredRecipes[indexPath.row] : allRecipes[indexPath.row]
 
-        cell.configure(with: RecipeModel(name: recipe, instructions: String(repeating: "Ejemplo de instrucciones para \(recipe)", count: indexPath.row+2)))
+        cell.configure(with: RecipeModel(name: recipe, instructions: String(repeating: "Instructions example to prepare a \(recipe)\n", count: indexPath.row+2)))
 
         return cell
     }

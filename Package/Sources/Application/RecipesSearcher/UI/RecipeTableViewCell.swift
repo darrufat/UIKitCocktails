@@ -55,7 +55,7 @@ final class RecipeTableViewCell: UITableViewCell {
 
 #Preview {
     let cell = RecipeTableViewCell(frame: .init(x: 0, y: 0, width: 320, height: 70))
-    cell.configure(with: RecipeModel(name: "Margarita", instructions: "Mueve la fresa y dale"))
+    cell.configure(with: RecipeModel(name: "Margarita", instructions: "Instructions to do a Margarita"))
     cell.backgroundColor = .red
     return cell
 }
