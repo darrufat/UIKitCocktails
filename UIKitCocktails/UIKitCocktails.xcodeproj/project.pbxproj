@@ -110,7 +110,6 @@
 			isa = PBXGroup;
 			children = (
 				1CC180D82AC9E65F00497D2C /* Application */,
-				1C92AC702AC966F80011F99E /* UIKitCocktails.entitlements */,
 				1C92AC712AC966F80011F99E /* Preview Content */,
 			);
 			path = UIKitCocktails;
@@ -153,6 +152,7 @@
 		1CC180D62AC9DD4E00497D2C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1C92AC702AC966F80011F99E /* UIKitCocktails.entitlements */,
 				1CF455F42AC9D38C0022D67C /* Info.plist */,
 			);
 			path = "Supporting Files";
@@ -500,7 +500,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = UIKitCocktails/UIKitCocktails.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "Supporting Files/UIKitCocktails.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"UIKitCocktails/Preview Content\"";
@@ -541,7 +541,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = UIKitCocktails/UIKitCocktails.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "Supporting Files/UIKitCocktails.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"UIKitCocktails/Preview Content\"";
