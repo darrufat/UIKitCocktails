@@ -84,5 +84,11 @@ extension RecipesSearcherViewController: UISearchResultsUpdating {
 }
 
 #Preview {
-    UINavigationController(rootViewController: RecipesSearcherViewController())
+    let vc = RecipesSearcherViewController()
+    vc.updateState(with: .loaded([
+        .init(name: "Margarita", instructions: "Instructions to do a Margarita"),
+        .init(name: "Mojito", instructions: "Instructions to do a Mojito"),
+        .init(name: "Sex on the beach", instructions: "Instructions to do a Sex on the beach"),
+    ]))
+    return UINavigationController(rootViewController: vc)
 }
