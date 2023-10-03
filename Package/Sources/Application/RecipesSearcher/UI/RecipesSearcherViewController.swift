@@ -1,12 +1,25 @@
+import Factory
 import UIKit
 
-final class RecipesSearcherViewController: UIViewController {
+// TODO: Move it to CommonUI
+public enum ViewState<T> {
+    case empty
+    case loading
+    case loaded(T)
+    case failed(LocalizedError)
+}
+
+protocol RecipesSearcherView: AnyObject {
+    func updateState(with state: ViewState<[RecipeViewModel]> )
+}
+
+final class RecipesSearcherViewController: UIViewController, RecipesSearcherView {
+    @Injected(\.recipesSearcherPresenter) var presenter
 
     private let tableView = UITableView()
     private let searchController = UISearchController(searchResultsController: nil)
-
-    var allRecipes: [String] = ["Margarita", "Martini", "Mojito", "Old Fashioned"]
-    var filteredRecipes: [String] = []
+    private var viewState: ViewState<[RecipeViewModel]> = .empty
+    private var recipes: [RecipeViewModel] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,20 +46,31 @@ final class RecipesSearcherViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         definesPresentationContext = true
     }
+
+    func updateState(with state: ViewState<[RecipeViewModel]>) {
+        switch state {
+        case .empty:
+            print("empty")
+        case .loading:
+            print("loading")
+        case .loaded(let recipes):
+            self.recipes = recipes
+            tableView.reloadData()
+        case .failed(let localizedError):
+            print("failed \(localizedError.localizedDescription)")
+        }
+    }
 }
 
 // MARK: - UITableViewDataSource and UITableViewDelegate
 extension RecipesSearcherViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return searchController.isActive ? filteredRecipes.count : allRecipes.count
+        recipes.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath) as? RecipeTableViewCell else { return UITableViewCell() }
-        let recipe = searchController.isActive ? filteredRecipes[indexPath.row] : allRecipes[indexPath.row]
-
-        cell.configure(with: RecipeModel(name: recipe, instructions: String(repeating: "Instructions example to prepare a \(recipe)\n", count: indexPath.row+2)))
-
+        cell.configure(with: recipes[indexPath.row])
         return cell
     }
 }
@@ -54,12 +78,8 @@ extension RecipesSearcherViewController: UITableViewDataSource, UITableViewDeleg
 // MARK: - UISearchResultsUpdating
 extension RecipesSearcherViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        if let searchText = searchController.searchBar.text, !searchText.isEmpty {
-            filteredRecipes = allRecipes.filter { $0.lowercased().contains(searchText.lowercased()) }
-        } else {
-            filteredRecipes = allRecipes
-        }
-        tableView.reloadData()
+        guard let searchText = searchController.searchBar.text, !searchText.isEmpty else { return }
+        presenter.searchRecipes(for: searchText)
     }
 }
 

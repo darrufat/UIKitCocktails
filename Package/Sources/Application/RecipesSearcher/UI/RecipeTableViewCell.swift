@@ -1,11 +1,6 @@
 import SnapKit
 import UIKit
 
-struct RecipeModel {
-    var name: String
-    var instructions: String
-}
-
 final class RecipeTableViewCell: UITableViewCell {
     private let nameLabel: UILabel = {
         let label = UILabel()
@@ -47,7 +42,7 @@ final class RecipeTableViewCell: UITableViewCell {
         }
     }
 
-    func configure(with recipe: RecipeModel) {
+    func configure(with recipe: RecipeViewModel) {
         nameLabel.text = recipe.name
         descriptionLabel.text = recipe.instructions
     }
@@ -55,7 +50,7 @@ final class RecipeTableViewCell: UITableViewCell {
 
 #Preview {
     let cell = RecipeTableViewCell(frame: .init(x: 0, y: 0, width: 320, height: 70))
-    cell.configure(with: RecipeModel(name: "Margarita", instructions: "Instructions to do a Margarita"))
+    cell.configure(with: RecipeViewModel(name: "Margarita", instructions: "Instructions to do a Margarita"))
     cell.backgroundColor = .red
     return cell
 }

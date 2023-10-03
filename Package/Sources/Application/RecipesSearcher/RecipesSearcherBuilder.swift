@@ -3,6 +3,8 @@ import UIKit
 
 struct RecipesSearcherBuilder: ViewModuleBuilder {
     func build() -> UIViewController {
-        RecipesSearcherViewController()
+        let vc = RecipesSearcherViewController()
+        vc.presenter.view = vc
+        return vc
     }
 }

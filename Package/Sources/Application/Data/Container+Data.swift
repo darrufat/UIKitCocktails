@@ -6,7 +6,14 @@ extension Container {
         self { DefaultRecipesNetworkDataSource() }
     }
 
-    public var recipesRepository: Factory<RecipesRepository> {
+    public var recipesRepository: Factory<RecipesRepository?> {
         self { DefaultRecipesRepository() }
+    }
+}
+
+
+extension Container: AutoRegistering {
+    public func autoRegister() {
+        recipesRepository.register { DefaultRecipesRepository() }
     }
 }

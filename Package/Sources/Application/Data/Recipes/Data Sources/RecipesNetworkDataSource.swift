@@ -12,13 +12,14 @@ struct DefaultRecipesNetworkDataSource: RecipesNetworkDataSource {
     private let baseURL: URL? = URL(string: "https://www.thecocktaildb.com/api/json/v1/1/")
 
     func fetchRecipes(query: String) async throws -> [RecipeDTO] {
-        guard let url = baseURL?.appendingPathComponent("search.php?s=\(query)") else { 
+        guard let url = baseURL?
+            .appendingPathComponent("search.php")
+            .appending(queryItems: [.init(name: "s", value: query)]) else {
             throw NSError(domain: "Invalid URL", code: 500)
         }
         let data = try await httpClient.get(url: url)
+        let dto = try JSONDecoder().decode(DrinksDTO.self, from: data)
 
-        let recipes = try JSONDecoder().decode([RecipeDTO].self, from: data)
-
-        return recipes
+        return dto.drinks
     }
 }
