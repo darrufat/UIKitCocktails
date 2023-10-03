@@ -10,6 +10,7 @@ struct DefaultRecipesRepository: RecipesRepository {
                 .init(name: $0.strDrink,
                       instructions: $0.strInstructions,
                       tags: $0.strTags?.components(separatedBy: ","),
+                      thumbnailUrl: $0.strDrinkThumb,
                       imageUrl: $0.strImageSource,
                       videoUrl: $0.strVideo,
                       ingredients: $0.ingredients)

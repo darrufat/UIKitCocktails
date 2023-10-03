@@ -40,6 +40,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/hmlongco/Factory.git", .upToNextMajor(from: "2.3.0")),
         .package(url: "https://github.com/SnapKit/SnapKit.git", .upToNextMajor(from: "5.0.1")),
+        .package(url: "https://github.com/onevcat/Kingfisher.git", from: "7.9.1"),
         .package(url: "https://github.com/pointfreeco/swift-snapshot-testing.git", from: "1.13.0"),
         .package(url: "https://github.com/Quick/Nimble.git", from: "12.0.0"),
     ],
@@ -47,7 +48,7 @@ let package = Package(
         // MARK: - Application
         .target(
             name: "RecipesSearcher",
-            dependencies: ["Common", "SnapKit", "Domain"],
+            dependencies: ["Common", "Kingfisher", "SnapKit", "Domain"],
             path: "Sources/Application/RecipesSearcher"
         ),
         .testTarget(
@@ -66,7 +67,7 @@ let package = Package(
         ),
         .target(
             name: "RecipeDetail",
-            dependencies: ["Domain"],
+            dependencies: ["Kingfisher", "Domain"],
             path: "Sources/Application/RecipeDetail"
         ),
         .testTarget(
@@ -112,6 +113,7 @@ let package = Package(
         // MARK: - Libraries
         .target(
             name: "HTTPClient",
+            dependencies: ["Factory"],
             path: "Sources/HTTPClient"
         ),
         .testTarget(

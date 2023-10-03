@@ -20,7 +20,7 @@ final class RecipesSearcherPresenter: RecipesSearcherPresentable {
             guard let self else { return }
             do {
                 let recipes = try await self.searchUseCase(with: query)
-                    .map { RecipeViewModel(name: $0.name, instructions: $0.instructions) }
+                    .map { RecipeCellModel(name: $0.name, instructions: $0.instructions, thumbnailUrl: $0.thumbnailUrl) }
                 await MainActor.run {
                     guard !recipes.isEmpty else {
                         self.view?.updateState(with: .empty)

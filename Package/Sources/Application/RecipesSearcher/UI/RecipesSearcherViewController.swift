@@ -10,7 +10,7 @@ public enum ViewState<T> {
 }
 
 protocol RecipesSearcherView: AnyObject {
-    func updateState(with state: ViewState<[RecipeViewModel]> )
+    func updateState(with state: ViewState<[RecipeCellModel]> )
 }
 
 final class RecipesSearcherViewController: UIViewController, RecipesSearcherView {
@@ -18,8 +18,8 @@ final class RecipesSearcherViewController: UIViewController, RecipesSearcherView
 
     private let tableView = UITableView()
     private let searchController = UISearchController(searchResultsController: nil)
-    private var viewState: ViewState<[RecipeViewModel]> = .empty
-    private var recipes: [RecipeViewModel] = []
+    private var viewState: ViewState<[RecipeCellModel]> = .empty
+    private var recipes: [RecipeCellModel] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,7 +47,7 @@ final class RecipesSearcherViewController: UIViewController, RecipesSearcherView
         definesPresentationContext = true
     }
 
-    func updateState(with state: ViewState<[RecipeViewModel]>) {
+    func updateState(with state: ViewState<[RecipeCellModel]>) {
         switch state {
         case .empty:
             print("empty")
@@ -86,9 +86,9 @@ extension RecipesSearcherViewController: UISearchResultsUpdating {
 #Preview {
     let vc = RecipesSearcherViewController()
     vc.updateState(with: .loaded([
-        .init(name: "Margarita", instructions: "Instructions to do a Margarita"),
-        .init(name: "Mojito", instructions: "Instructions to do a Mojito"),
-        .init(name: "Sex on the beach", instructions: "Instructions to do a Sex on the beach"),
+        .init(name: "Margarita", instructions: "Instructions to do a Margarita", thumbnailUrl: nil),
+        .init(name: "Mojito", instructions: "Instructions to do a Mojito", thumbnailUrl: nil),
+        .init(name: "Sex on the beach", instructions: "Instructions to do a Sex on the beach", thumbnailUrl: nil),
     ]))
     return UINavigationController(rootViewController: vc)
 }
