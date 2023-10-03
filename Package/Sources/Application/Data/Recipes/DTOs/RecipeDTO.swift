@@ -8,7 +8,7 @@ struct RecipeDTO: Decodable {
     let strTags: String?
     let strImageSource: String?
     let strVideo: String?
-    var ingredients: [String]
+    var ingredients: [String]?
 
     enum CodingKeys: String, CodingKey {
         case strDrink, strInstructions, strTags, strImageSource, strVideo
