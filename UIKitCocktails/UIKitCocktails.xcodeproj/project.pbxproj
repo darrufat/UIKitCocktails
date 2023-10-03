@@ -17,6 +17,7 @@
 		1C92AC892AC966F80011F99E /* UIKitCocktailsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C92AC882AC966F80011F99E /* UIKitCocktailsUITestsLaunchTests.swift */; };
 		1CC180DB2AC9F91400497D2C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CC180DA2AC9F91400497D2C /* LaunchScreen.storyboard */; };
 		1CC180DE2ACA158A00497D2C /* RecipesSearcher in Frameworks */ = {isa = PBXBuildFile; productRef = 1CC180DD2ACA158A00497D2C /* RecipesSearcher */; };
+		1CC180E02ACC4CA900497D2C /* Data in Frameworks */ = {isa = PBXBuildFile; productRef = 1CC180DF2ACC4CA900497D2C /* Data */; };
 		1CF455EE2AC9CD020022D67C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF455ED2AC9CD020022D67C /* AppDelegate.swift */; };
 		1CF455F02AC9CD1A0022D67C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF455EF2AC9CD1A0022D67C /* SceneDelegate.swift */; };
 /* End PBXBuildFile section */
@@ -62,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1CC180E02ACC4CA900497D2C /* Data in Frameworks */,
 				1CC180DE2ACA158A00497D2C /* RecipesSearcher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -220,6 +222,7 @@
 			name = UIKitCocktails;
 			packageProductDependencies = (
 				1CC180DD2ACA158A00497D2C /* RecipesSearcher */,
+				1CC180DF2ACC4CA900497D2C /* Data */,
 			);
 			productName = UIKitCocktails;
 			productReference = 1C92AC652AC966F50011F99E /* UIKitCocktails.app */;
@@ -712,6 +715,10 @@
 		1CC180DD2ACA158A00497D2C /* RecipesSearcher */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = RecipesSearcher;
+		};
+		1CC180DF2ACC4CA900497D2C /* Data */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Data;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
