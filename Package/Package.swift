@@ -31,6 +31,11 @@ let package = Package(
             name: "Common",
             targets: ["Common"]
         ),
+        // MARK: - Libraries
+        .library(
+            name: "HTTPClient",
+            targets: ["HTTPClient"]
+        ),
     ],
     dependencies: [
         .package(url: "https://github.com/hmlongco/Factory.git", .upToNextMajor(from: "2.3.0")),
@@ -89,7 +94,7 @@ let package = Package(
         ),
         .target(
             name: "Data",
-            dependencies: ["Factory", "Nimble"],
+            dependencies: ["Domain", "Factory", "HTTPClient"],
             path: "Sources/Application/Data"
         ),
         .testTarget(
@@ -102,6 +107,17 @@ let package = Package(
         .target(
             name: "Common",
             path: "Sources/Core/Common"
+        ),
+
+        // MARK: - Libraries
+        .target(
+            name: "HTTPClient",
+            path: "Sources/HTTPClient"
+        ),
+        .testTarget(
+            name: "HTTPClientTests",
+            dependencies: ["HTTPClient"],
+            path: "Tests/Unit/HTTPClientTests"
         ),
     ]
 )
