@@ -1,40 +1,51 @@
 import Common
 import Foundation
-import SwiftData
+import RealmSwift
 
 public protocol DBClient {
     func persist(recipes: [RecipeEntity]) async throws
     func fetch(with query: String) async throws -> [RecipeEntity]
 }
 
-final class SwiftDataClient: DBClient {
-    var container: ModelContainer?
-    var context: ModelContext?
+final class RealmDBClient: DBClient {
 
-    init() {
-        do {
-            container = try ModelContainer(for: RecipeEntity.self)
-            if let container {
-                context = ModelContext(container)
-            }
-        } catch {
-            print(error)
-        }
-    }
+    init() {}
 
+    @MainActor
     func persist(recipes: [RecipeEntity]) async throws {
-        guard let context else { throw NSError(domain: "Context needed", code: 1002) }
-        recipes.forEach {
-            context.insert($0)
+        let realm = try await Realm()
+        let dbos = recipes.map {
+            RecipeDBO(id: $0.id,
+                      name: $0.name,
+                      instructions: $0.instructions,
+                      tags: $0.tags?.joined(separator: ","),
+                      thumbnailUrl: $0.thumbnailUrl,
+                      imageUrl: $0.imageUrl,
+                      videoUrl: $0.videoUrl,
+                      ingredients: $0.ingredients?.joined(separator: ","))
         }
-        try context.save()
+
+        try realm.write {
+            for dbo in dbos {
+                realm.add(dbo, update: .modified)
+            }
+        }
     }
 
+    @MainActor
     func fetch(with query: String) async throws -> [RecipeEntity] {
-        let descriptor = FetchDescriptor<RecipeEntity>(predicate: #Predicate { recipe in
-            recipe.name.contains(query) // lowercase needed?
-        })
-        let recipes = try context?.fetch(descriptor)
-        return recipes ?? []
+        let realm = try await Realm()
+        let recipes = realm.objects(RecipeDBO.self)
+        let filtered = recipes.filter("name CONTAINS %@", query)
+        return filtered.map {
+            RecipeEntity(id: $0.id,
+                         name: $0.name,
+                         instructions: $0.instructions,
+                         tags: $0.tags?.components(separatedBy: ","),
+                         thumbnailUrl: $0.thumbnailUrl,
+                         imageUrl: $0.imageUrl,
+                         videoUrl: $0.videoUrl,
+                         ingredients: $0.ingredients?.components(separatedBy: ","))
+        }
     }
 }

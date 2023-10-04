@@ -1,8 +1,5 @@
-import SwiftData
-
-@Model
-public final class RecipeEntity {
-    @Attribute(.unique) public let id: String
+public struct RecipeEntity {
+    public let id: String
     public let name: String
     public let instructions: String
     public let tags: [String]?

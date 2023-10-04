@@ -26,7 +26,7 @@ final class RecipeDetailViewController: UIViewController, RecipesDetailView {
     private let nameLabel: UILabel = {
         let nameLabel = UILabel()
         nameLabel.font = UIFont.boldSystemFont(ofSize: 24)
-        nameLabel.textColor = .black
+        nameLabel.textColor = .label
         nameLabel.numberOfLines = 0
         return nameLabel
     }()
@@ -34,7 +34,7 @@ final class RecipeDetailViewController: UIViewController, RecipesDetailView {
     private let instructionsLabel: UILabel = {
         let instructionsLabel = UILabel()
         instructionsLabel.font = UIFont.systemFont(ofSize: 16)
-        instructionsLabel.textColor = .darkGray
+        instructionsLabel.textColor = .secondaryLabel
         instructionsLabel.numberOfLines = 0
         return instructionsLabel
     }()
@@ -55,10 +55,10 @@ final class RecipeDetailViewController: UIViewController, RecipesDetailView {
 
     private func setupUI() {
         navigationItem.largeTitleDisplayMode = .never
-        navigationController?.navigationBar.tintColor = .black
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+        navigationController?.navigationBar.tintColor = .label
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.label]
 
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         view.addSubview(scrollView)
         scrollView.addSubview(imageSection)
         scrollView.addSubview(stackView)

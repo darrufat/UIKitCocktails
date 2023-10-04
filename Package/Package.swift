@@ -5,7 +5,7 @@ import PackageDescription
 let package = Package(
     name: "Package",
     platforms: [
-        .iOS("17.0")
+        .iOS("16.0")
     ],
     products: [
         // MARK: - App Features
@@ -46,6 +46,7 @@ let package = Package(
         .package(url: "https://github.com/hmlongco/Factory.git", .upToNextMajor(from: "2.3.0")),
         .package(url: "https://github.com/SnapKit/SnapKit.git", .upToNextMajor(from: "5.0.1")),
         .package(url: "https://github.com/onevcat/Kingfisher.git", from: "7.9.1"),
+        .package(url: "https://github.com/realm/realm-swift.git", from: "10.43.0"),
         .package(url: "https://github.com/pointfreeco/swift-snapshot-testing.git", from: "1.13.0"),
         .package(url: "https://github.com/Quick/Nimble.git", from: "12.0.0"),
     ],
@@ -128,7 +129,7 @@ let package = Package(
         ),
         .target(
             name: "DBClient",
-            dependencies: ["Factory"],
+            dependencies: ["Factory", .product(name: "RealmSwift", package: "realm-swift")],
             path: "Sources/DBClient"
         ),
         .testTarget(
