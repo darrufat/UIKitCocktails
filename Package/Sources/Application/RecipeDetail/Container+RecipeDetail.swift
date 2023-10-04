@@ -6,6 +6,10 @@ extension Container {
         self { RecipeDetailBuilder() }
     }
 
+    var recipeDetailPresenter: Factory<RecipeDetailPresentable> {
+        self { RecipeDetailPresenter() }
+    }
+
     public func registerDetailDependencies() {
         recipeDetailBuilder.register { RecipeDetailBuilder() }
     }

@@ -33,6 +33,7 @@ final class RecipesSearcherViewController: UIViewController, RecipesSearcherView
         searchController.searchBar.delegate = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search Cocktails" // TODO: Add localization solution (L10n?)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Cocktail Recipes", style: .plain, target: nil, action: nil)
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         navigationItem.title = "Cocktail Recipes"

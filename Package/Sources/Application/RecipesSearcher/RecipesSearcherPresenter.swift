@@ -1,6 +1,5 @@
 import Common
 import Domain
-import Dispatch
 import Factory
 
 protocol RecipesSearcherPresentable {

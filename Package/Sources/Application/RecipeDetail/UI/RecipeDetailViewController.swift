@@ -1,4 +1,5 @@
 import Common
+import Factory
 import SnapKit
 import UIKit
 
@@ -7,6 +8,7 @@ protocol RecipesDetailView: AnyObject {
 }
 
 final class RecipeDetailViewController: UIViewController, RecipesDetailView {
+    @Injected(\.recipeDetailPresenter) var presenter
 
     private let imageSection = ImageSectionButton()
     private let tagsSection = TagsSectionView()
@@ -53,7 +55,6 @@ final class RecipeDetailViewController: UIViewController, RecipesDetailView {
 
     private func setupUI() {
         navigationItem.largeTitleDisplayMode = .never
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationController?.navigationBar.tintColor = .black
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
 
@@ -118,22 +119,19 @@ final class RecipeDetailViewController: UIViewController, RecipesDetailView {
     }
 
     @objc private func imageTapped() {
-        if let videoURL = URL(string: recipeDetail?.videoUrl ?? "") {
-            UIApplication.shared.open(videoURL)
-        } else if let imageURL = URL(string: recipeDetail?.imageUrl ?? "") {
-            UIApplication.shared.open(imageURL)
-        }
+        presenter.imageTapped()
     }
 }
 
+// TODO: Review preview errors
 #Preview {
     let vc = RecipeDetailViewController()
-    vc.updateState(with: .loaded(.init(name: "Margarita",
-                            instructions: "How to do a Margarita",
-                            tags: ["Sweet", "Exotic", "Mexican", "Cold", "Lemon"],
-                            thumbnailUrl: nil,
-                            imageUrl: nil,
-                            videoUrl: nil,
-                            ingredients: nil)))
+    vc.updateState(with: .loaded(.init(name: "Mojito",
+                                       instructions: "Muddle mint leaves with sugar and lime juice. Add a splash of soda water and fill the glass with cracked ice. Pour the rum and top with soda water. Garnish and serve with straw.",
+                                       tags: ["IBA", "ContemporaryClassic", "Alcoholic", "USA", "Asia", "Vegan", "Citrus", "Brunch", "Hangover", "Mild"],
+                                       thumbnailUrl: "https://www.thecocktaildb.com/images/media/drink/metwgh1606770327.jpg",
+                                       imageUrl: "https://pixabay.com/photos/cocktail-mojito-cocktail-recipe-5096281/",
+                                       videoUrl: nil,
+                                       ingredients: ["Light rum", "Lime", "Sugar", "Mint", "Soda water"])))
     return UINavigationController(rootViewController: vc)
 }
