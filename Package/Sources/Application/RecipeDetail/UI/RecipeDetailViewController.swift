@@ -58,16 +58,22 @@ final class RecipeDetailViewController: UIViewController, RecipesDetailView {
 
         view.backgroundColor = .white
         view.addSubview(scrollView)
+        scrollView.addSubview(imageSection)
         scrollView.addSubview(stackView)
 
         scrollView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+
+        imageSection.snp.makeConstraints { make in
+            make.top.left.right.equalTo(view.safeAreaLayoutGuide)
+            make.height.equalTo(300)
         }
 
         stackView.snp.makeConstraints { make in
-            make.top.bottom.equalTo(scrollView)
-            make.left.right.equalTo(view)
-            make.width.equalTo(view)
+            make.top.equalTo(imageSection.snp.bottom).offset(20)
+            make.left.right.equalTo(view).inset(20)
+            make.bottom.equalToSuperview()
         }
     }
 
@@ -94,7 +100,6 @@ final class RecipeDetailViewController: UIViewController, RecipesDetailView {
         imageSection.configure(with: recipeDetail)
         nameLabel.text = recipeDetail.name
         instructionsLabel.text = recipeDetail.instructions
-        stackView.addArrangedSubview(imageSection)
         stackView.addArrangedSubview(nameLabel)
         stackView.addArrangedSubview(instructionsLabel)
 
