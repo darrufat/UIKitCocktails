@@ -1,16 +1,9 @@
+import Common
 import Factory
 import UIKit
 
-// TODO: Move it to CommonUI
-public enum ViewState<T> {
-    case empty
-    case loading
-    case loaded(T)
-    case failed(LocalizedError)
-}
-
 protocol RecipesSearcherView: AnyObject {
-    func updateState(with state: ViewState<[RecipeViewModel]> )
+    func updateState(with state: ViewState<[RecipeCellModel]>)
 }
 
 final class RecipesSearcherViewController: UIViewController, RecipesSearcherView {
@@ -18,8 +11,8 @@ final class RecipesSearcherViewController: UIViewController, RecipesSearcherView
 
     private let tableView = UITableView()
     private let searchController = UISearchController(searchResultsController: nil)
-    private var viewState: ViewState<[RecipeViewModel]> = .empty
-    private var recipes: [RecipeViewModel] = []
+    private var viewState: ViewState<[RecipeCellModel]> = .empty
+    private var recipes: [RecipeCellModel] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,8 +30,10 @@ final class RecipesSearcherViewController: UIViewController, RecipesSearcherView
         view.addSubview(tableView)
 
         searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search Cocktails" // TODO: Add localization solution (L10n?)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Cocktail Recipes", style: .plain, target: nil, action: nil)
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         navigationItem.title = "Cocktail Recipes"
@@ -47,7 +42,7 @@ final class RecipesSearcherViewController: UIViewController, RecipesSearcherView
         definesPresentationContext = true
     }
 
-    func updateState(with state: ViewState<[RecipeViewModel]>) {
+    func updateState(with state: ViewState<[RecipeCellModel]>) {
         switch state {
         case .empty:
             print("empty")
@@ -73,16 +68,30 @@ extension RecipesSearcherViewController: UITableViewDataSource, UITableViewDeleg
         cell.configure(with: recipes[indexPath.row])
         return cell
     }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        presenter.recipeSelected(at: indexPath.row)
+    }
 }
 
 // MARK: - UISearchResultsUpdating
-extension RecipesSearcherViewController: UISearchResultsUpdating {
+extension RecipesSearcherViewController: UISearchResultsUpdating, UISearchBarDelegate {
     func updateSearchResults(for searchController: UISearchController) {
         guard let searchText = searchController.searchBar.text, !searchText.isEmpty else { return }
         presenter.searchRecipes(for: searchText)
     }
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchController.isActive = false
+    }
 }
 
 #Preview {
-    UINavigationController(rootViewController: RecipesSearcherViewController())
+    let vc = RecipesSearcherViewController()
+    vc.updateState(with: .loaded([
+        .init(name: "Margarita", instructions: "Instructions to do a Margarita", thumbnailUrl: nil),
+        .init(name: "Mojito", instructions: "Instructions to do a Mojito", thumbnailUrl: nil),
+        .init(name: "Sex on the beach", instructions: "Instructions to do a Sex on the beach", thumbnailUrl: nil),
+    ]))
+    return UINavigationController(rootViewController: vc)
 }

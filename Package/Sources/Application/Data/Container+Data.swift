@@ -9,11 +9,8 @@ extension Container {
     public var recipesRepository: Factory<RecipesRepository?> {
         self { DefaultRecipesRepository() }
     }
-}
 
-
-extension Container: AutoRegistering {
-    public func autoRegister() {
+    public func registerDataDependencies() {
         recipesRepository.register { DefaultRecipesRepository() }
     }
 }

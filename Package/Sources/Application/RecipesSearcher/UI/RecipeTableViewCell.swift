@@ -1,7 +1,18 @@
+import Kingfisher
 import SnapKit
 import UIKit
 
 final class RecipeTableViewCell: UITableViewCell {
+    private let thumbnailImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = .lightGray
+        imageView.backgroundColor = UIColor(white: 0.95, alpha: 1.0)
+        imageView.layer.cornerRadius = 25
+        imageView.clipsToBounds = true
+        return imageView
+    }()
+
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 18)
@@ -26,33 +37,46 @@ final class RecipeTableViewCell: UITableViewCell {
     }
 
     private func setupUI() {
+        contentView.addSubview(thumbnailImageView)
         contentView.addSubview(nameLabel)
         contentView.addSubview(descriptionLabel)
 
+        thumbnailImageView.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(16)
+            make.top.equalToSuperview().offset(8)
+            make.width.height.equalTo(50)
+        }
+
         nameLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(10)
-            make.left.equalToSuperview().offset(15)
-            make.right.equalToSuperview().offset(-15)
+            make.leading.equalTo(thumbnailImageView.snp.trailing).offset(16)
+            make.trailing.equalToSuperview().offset(-16)
+            make.top.equalToSuperview().offset(8)
         }
 
         descriptionLabel.snp.makeConstraints { make in
-            make.top.equalTo(nameLabel.snp.bottom).offset(5)
-            make.left.right.equalTo(nameLabel)
-            make.bottom.equalToSuperview().offset(-10)
+            make.leading.trailing.equalTo(nameLabel)
+            make.top.equalTo(nameLabel.snp.bottom).offset(8)
+            make.bottom.equalToSuperview().offset(-8)
         }
     }
 
-    func configure(with recipe: RecipeViewModel) {
+    func configure(with recipe: RecipeCellModel) {
         nameLabel.text = recipe.name
         descriptionLabel.text = recipe.instructions
+        let placeholder = UIImage(systemName: "wineglass")
+        if let imageUrl = recipe.thumbnailUrl, let url = URL(string: imageUrl) {
+            thumbnailImageView.kf.setImage(with: url, placeholder: placeholder)
+        } else {
+            thumbnailImageView.image = placeholder
+        }
     }
 }
 
 #Preview {
     let cell = RecipeTableViewCell(frame: .init(x: 0, y: 0, width: 320, height: 70))
-    cell.configure(with: RecipeViewModel(name: "Margarita", instructions: "Instructions to do a Margarita"))
+    cell.configure(with: RecipeCellModel(name: "Margarita", instructions: "Instructions to do a Margarita \nInstructions to do a Margarita \nInstructions to do a Margarita \nInstructions to do a Margarita \n", thumbnailUrl: nil))
     cell.snp.makeConstraints { make in
-        make.height.equalTo(70)
+        make.height.equalTo(120)
     }
     return cell
 }
