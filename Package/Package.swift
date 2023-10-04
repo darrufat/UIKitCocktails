@@ -31,6 +31,7 @@ let package = Package(
             name: "Common",
             targets: ["Common"]
         ),
+        
         // MARK: - Libraries
         .library(
             name: "HTTPClient",
@@ -95,7 +96,7 @@ let package = Package(
         ),
         .target(
             name: "Data",
-            dependencies: ["Domain", "Factory", "HTTPClient"],
+            dependencies: ["Common", "Domain", "Factory", "HTTPClient"],
             path: "Sources/Application/Data"
         ),
         .testTarget(
