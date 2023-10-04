@@ -3,6 +3,7 @@ struct DrinksDTO: Decodable {
 }
 
 struct RecipeDTO: Decodable {
+    let idDrink: String
     let strDrink: String
     let strInstructions: String
     let strTags: String?
@@ -12,7 +13,7 @@ struct RecipeDTO: Decodable {
     var ingredients: [String]?
 
     enum CodingKeys: String, CodingKey {
-        case strDrink, strDrinkThumb, strInstructions, strTags, strImageSource, strVideo
+        case idDrink, strDrink, strDrinkThumb, strInstructions, strTags, strImageSource, strVideo
         case strIngredient1, strIngredient2, strIngredient3, strIngredient4, strIngredient5
         case strIngredient6, strIngredient7, strIngredient8, strIngredient9, strIngredient10
         case strIngredient11, strIngredient12, strIngredient13, strIngredient14, strIngredient15
@@ -21,6 +22,7 @@ struct RecipeDTO: Decodable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
+        idDrink = try container.decode(String.self, forKey: .idDrink)
         strDrink = try container.decode(String.self, forKey: .strDrink)
         strDrinkThumb = try container.decode(String.self, forKey: .strDrinkThumb)
         strInstructions = try container.decode(String.self, forKey: .strInstructions)

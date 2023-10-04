@@ -6,6 +6,10 @@ extension Container {
         self { DefaultRecipesNetworkDataSource() }
     }
 
+    var recipesLocalDataSource: Factory<RecipesLocalDataSource> {
+        self { DefaultRecipesLocalDataSource() }
+    }
+
     public var recipesRepository: Factory<RecipesRepository?> {
         self { DefaultRecipesRepository() }
     }

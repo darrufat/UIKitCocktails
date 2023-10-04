@@ -37,6 +37,10 @@ let package = Package(
             name: "HTTPClient",
             targets: ["HTTPClient"]
         ),
+        .library(
+            name: "DBClient",
+            targets: ["DBClient"]
+        ),
     ],
     dependencies: [
         .package(url: "https://github.com/hmlongco/Factory.git", .upToNextMajor(from: "2.3.0")),
@@ -96,7 +100,7 @@ let package = Package(
         ),
         .target(
             name: "Data",
-            dependencies: ["Common", "Domain", "Factory", "HTTPClient"],
+            dependencies: ["Common", "Domain", "Factory", "HTTPClient", "DBClient"],
             path: "Sources/Application/Data"
         ),
         .testTarget(
@@ -121,6 +125,16 @@ let package = Package(
             name: "HTTPClientTests",
             dependencies: ["HTTPClient"],
             path: "Tests/Unit/HTTPClientTests"
+        ),
+        .target(
+            name: "DBClient",
+            dependencies: ["Factory"],
+            path: "Sources/DBClient"
+        ),
+        .testTarget(
+            name: "DBClientTests",
+            dependencies: ["DBClient"],
+            path: "Tests/Unit/DBClientTests"
         ),
     ]
 )

@@ -1,4 +1,8 @@
-public struct RecipeEntity {
+import SwiftData
+
+@Model
+public final class RecipeEntity {
+    @Attribute(.unique) public let id: String
     public let name: String
     public let instructions: String
     public let tags: [String]?
@@ -7,7 +11,8 @@ public struct RecipeEntity {
     public let videoUrl: String?
     public let ingredients: [String]?
 
-    public init(name: String, instructions: String, tags: [String]? = nil, thumbnailUrl: String? = nil, imageUrl: String? = nil, videoUrl: String? = nil, ingredients: [String]? = nil) {
+    public init(id: String, name: String, instructions: String, tags: [String]? = nil, thumbnailUrl: String? = nil, imageUrl: String? = nil, videoUrl: String? = nil, ingredients: [String]? = nil) {
+        self.id = id
         self.name = name
         self.instructions = instructions
         self.tags = tags
