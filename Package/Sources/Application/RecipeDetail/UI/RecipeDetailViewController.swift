@@ -103,10 +103,10 @@ final class RecipeDetailViewController: UIViewController, RecipesDetailView {
         stackView.addArrangedSubview(nameLabel)
         stackView.addArrangedSubview(instructionsLabel)
 
-//        if let tags = recipeDetail.tags, !tags.isEmpty {
-//            tagsSection.configure(with: tags)
-//            stackView.addArrangedSubview(tagsSection)
-//        }
+        if let tags = recipeDetail.tags, !tags.isEmpty {
+            tagsSection.configure(with: tags)
+            stackView.addArrangedSubview(tagsSection)
+        }
 //
 //        if let ingredients = recipeDetail.ingredients, !ingredients.isEmpty {
 //            ingredientsSection.configure(with: ingredients)

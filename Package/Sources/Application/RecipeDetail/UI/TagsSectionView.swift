@@ -36,18 +36,10 @@ final class TagsSectionView: UIView {
 
     func configure(with tags: [String]) {
         for tag in tags {
-            let label = UILabel()
-            label.text = tag
-            label.backgroundColor = .systemGray4
-            label.layer.cornerRadius = 15
-            label.layer.masksToBounds = true
-            label.textAlignment = .center
-            label.textColor = .white
-            label.font = .systemFont(ofSize: 14)
+            let label = TagLabel(text: tag)
             stackView.addArrangedSubview(label)
-
             label.snp.makeConstraints { make in
-                make.height.equalTo(30)
+                make.top.bottom.equalToSuperview()
             }
         }
     }
