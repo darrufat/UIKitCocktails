@@ -17,6 +17,7 @@ final class RecipeDetailViewController: UIViewController, RecipesDetailView {
     private let scrollView: UIScrollView = {
         let sv = UIScrollView()
         sv.translatesAutoresizingMaskIntoConstraints = false
+        sv.isScrollEnabled = true
         return sv
     }()
 
@@ -66,14 +67,16 @@ final class RecipeDetailViewController: UIViewController, RecipesDetailView {
         }
 
         imageSection.snp.makeConstraints { make in
-            make.top.left.right.equalTo(view.safeAreaLayoutGuide)
+            make.top.equalTo(scrollView)
+            make.left.right.equalToSuperview()
+            make.width.equalTo(view)
             make.height.equalTo(300)
         }
 
         stackView.snp.makeConstraints { make in
             make.top.equalTo(imageSection.snp.bottom).offset(20)
-            make.left.right.equalTo(view).inset(20)
-            make.bottom.equalToSuperview()
+            make.left.right.equalToSuperview().inset(20)
+            make.bottom.equalTo(scrollView)
         }
     }
 
@@ -107,11 +110,11 @@ final class RecipeDetailViewController: UIViewController, RecipesDetailView {
             tagsSection.configure(with: tags)
             stackView.addArrangedSubview(tagsSection)
         }
-//
-//        if let ingredients = recipeDetail.ingredients, !ingredients.isEmpty {
-//            ingredientsSection.configure(with: ingredients)
-//            stackView.addArrangedSubview(ingredientsSection)
-//        }
+
+        if let ingredients = recipeDetail.ingredients, !ingredients.isEmpty {
+            ingredientsSection.configure(with: ingredients)
+            stackView.addArrangedSubview(ingredientsSection)
+        }
     }
 
     @objc private func imageTapped() {
