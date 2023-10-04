@@ -24,14 +24,19 @@ final class RecipesSearcherPresenter: RecipesSearcherPresentable {
             guard let self else { return }
             do {
                 self.recipes = try await self.searchUseCase(with: query)
+                let models = self.recipes.map {
+                    let name = $0.name
+                    let instructions = $0.instructions
+                    let thumbnailUrl = $0.thumbnailUrl
+                    return RecipeCellModel(name: name,
+                                    instructions: instructions,
+                                    thumbnailUrl: thumbnailUrl)
+                }
                 await MainActor.run {
                     guard !self.recipes.isEmpty else {
                         self.view?.updateState(with: .empty)
                         return
                     }
-                    let models = self.recipes.map { RecipeCellModel(name: $0.name,
-                                                                    instructions: $0.instructions,
-                                                                    thumbnailUrl: $0.thumbnailUrl) }
                     self.view?.updateState(with: .loaded(models))
                 }
             } catch {
