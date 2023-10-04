@@ -2,47 +2,59 @@ import Kingfisher
 import SnapKit
 import UIKit
 
-final class ImageSectionView: UIView {
-    let imageView: UIImageView = {
-        let iv = UIImageView()
-        iv.contentMode = .scaleAspectFill
-        return iv
+final class ImageSectionButton: UIButton {
+
+    private let thumbnailView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        return imageView
     }()
 
-    let playButton: UIButton = {
-        let btn = UIButton(type: .system)
-        btn.setImage(UIImage(systemName: "play.circle.fill"), for: .normal)
-        btn.tintColor = .white
-        return btn
-    }()
+    private let playIcon: UIImageView = {
+            let imageView = UIImageView()
+            imageView.image = UIImage(systemName: "play.circle.fill")
+            imageView.tintColor = .white
+            imageView.contentMode = .scaleAspectFit
+            imageView.isHidden = true
+            return imageView
+        }()
 
-    init() {
-        super.init(frame: .zero)
-        addSubview(imageView)
-        addSubview(playButton)
+    override var intrinsicContentSize: CGSize {
+        return CGSize(width: UIView.noIntrinsicMetric, height: 300)
+    }
 
-        imageView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
+    var didTapImage: (() -> Void)?
 
-        playButton.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-            make.size.equalTo(50)
-        }
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupView()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configure(with model: RecipeDetailModel) {
-        if let url = URL(string: model.thumbnailUrl ?? "") {
-            imageView.kf.setImage(with: url,
-                                  placeholder: nil,
-                                  options: [.transition(.fade(0.2))],
-                                  completionHandler: nil)
+    private func setupView() {
+        addSubview(thumbnailView)
+        addSubview(playIcon)
+
+        thumbnailView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+            make.height.equalTo(300).priority(.high)
         }
 
-        playButton.isHidden = model.videoUrl == nil
+        playIcon.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.size.equalTo(CGSize(width: 50, height: 50))
+        }
+    }
+
+    func configure(with model: RecipeDetailModel) {
+        if let url = URL(string: model.thumbnailUrl ?? "") {
+            thumbnailView.kf.setImage(with: url, placeholder: nil, options: nil, completionHandler: nil)
+        }
+
+        playIcon.isHidden = model.videoUrl == nil
     }
 }
